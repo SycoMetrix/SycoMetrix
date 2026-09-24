@@ -1,0 +1,2 @@
+# SycoMetrix
+A sycophancy detector.
