@@ -12,7 +12,7 @@ Describe what you are changing how it affects the project.
 ## Checklist
 
 - [ ] Lint and unit tests pass locally
-- [ ] The necessary documenation has been added
+- [ ] The necessary documentation has been added
 - [ ] The pull request is small enough that it can be reviewed easily
 - [ ] Citations have been added where possible or necessary
 
