@@ -1,0 +1,35 @@
+name: Bug Report
+description: Report a bug or issue with SycoMetrix
+title: "Bug Report: [Your Bug Title Here]"
+body:
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current Behavior
+      description: Please provide a detailed description of the bug you are reporting, including steps to reproduce
+      placeholder: "I am experiencing a bug where..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: Please provide a detailed description of what you expected to happen.
+      placeholder: "I expected this to work by..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Steps to Reproduce
+      description: Please provide the steps to reproduce the bug.
+      placeholder: "1. Step one\n2. Step two\n3. Step three"
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional Information
+      description: Please provide any additional information that may be helpful in understanding your feature request.
+    validations:
+      required: false
