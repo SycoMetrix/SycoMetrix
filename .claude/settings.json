@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(textutil -convert txt -stdout \"docs/CMPSC487W LLM Sycophancy - Client Needs - Fall 2026 \\(1\\).docx\")"
+    ]
+  }
+}
