@@ -46,5 +46,6 @@ Question → Prompt Variations → LLM Responses → Comparison → Sycophancy A
 
 ## Related Docs
 
+- [Tech stack](tech_stack.md)
 - [Database design](database_er_diagrams.md)
 - [LLM API usage](API.md)
