@@ -28,6 +28,7 @@ Create the Flask project skeleton so everyone can clone the repo, start PostgreS
 | `pyproject.toml`                  | ruff and pytest settings only (not packaging)             |
 | `.github/workflows/tests.yml`     | Run ruff and pytest on every PR                            |
 | `AGENTS.md`                       | Short pointer file for AI agents (see step 9)              |
+| `docs/uml/01-project-setup.md`    | UML design doc (see [Design docs](README.md#design-docs))  |
 
 Update `README.md` with setup instructions.
 
@@ -139,7 +140,7 @@ Flask finds the factory through `FLASK_APP=sycometrix` (put this in `.env.exampl
 
 - Create `api_bp = Blueprint("api", __name__)`.
 - Add `api_error(status: int, code: str, message: str)`, which returns `(jsonify({"error": {"code": code, "message": message}}), status)`.
-- Register handlers on the blueprint so every API error is JSON in the shape from [Shared conventions](README.md#json-api):
+- Register handlers so every API error is JSON in the shape from [Shared conventions](README.md#json-api). Use `api_bp.app_errorhandler` (app-wide) and only return JSON when the path starts with `/api`: routing 404s and 405s happen before Flask knows the request belongs to the blueprint, so blueprint-only handlers never see them.
   - `404` → `not_found`
   - `400` → `validation_error`
   - `405` → `method_not_allowed`
@@ -166,14 +167,14 @@ services:
       POSTGRES_PASSWORD: sycometrix
       POSTGRES_DB: sycometrix
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 volumes:
   pgdata:
 ```
 
-Teammates without Docker can install PostgreSQL locally and set `DATABASE_URL`.
+Teammates without Docker can install PostgreSQL locally and set `DATABASE_URL`. If a local PostgreSQL already uses port 5432, set `POSTGRES_PORT` (and the port in `DATABASE_URL`) to a free port.
 
 ### 7. Test fixtures (`tests/conftest.py`)
 
@@ -203,12 +204,15 @@ def client(app):
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+# Code blocks in docs are illustrative; don't let `ruff format` rewrite them.
+extend-exclude = ["*.md"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 ```
 
 `.github/workflows/tests.yml`: on `pull_request` and `push` to `main`, set up Python 3.12, `pip install -r requirements-dev.txt`, then run `ruff check .` and `pytest`. Tests use SQLite, so CI doesn't need a database service.
@@ -222,6 +226,7 @@ A short file at the repo root that tells AI agents where to look:
 
 - Read docs/implementation_plan/README.md for conventions before changing code.
 - Work on one ticket from docs/implementation_plan/ at a time.
+- Add or update the ticket's UML design doc in docs/uml/ (see docs/uml/README.md).
 - Run `ruff check .` and `pytest` before finishing.
 - Never call a real LLM in tests; use FakeLLMClient.
 - Never commit .env or API keys.

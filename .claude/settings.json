@@ -1,7 +1,32 @@
 {
   "permissions": {
     "allow": [
-      "Bash(textutil -convert txt -stdout \"docs/CMPSC487W LLM Sycophancy - Client Needs - Fall 2026 \\(1\\).docx\")"
+      "Bash(textutil -convert txt -stdout \"docs/CMPSC487W LLM Sycophancy - Client Needs - Fall 2026 \\(1\\).docx\")",
+      "Bash(git checkout *)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(grep -E '^python3\\\\.[0-9]+$')",
+      "Bash(python3.13 -m venv .venv)",
+      "Bash(.venv/bin/pip install *)",
+      "Bash(.venv/bin/pip freeze *)",
+      "Bash(.venv/bin/pytest -q)",
+      "Bash(.venv/bin/ruff check *)",
+      "Bash(.venv/bin/ruff format *)",
+      "Bash(docker compose *)",
+      "Bash(break)",
+      "Bash(.venv/bin/python -c ' *)",
+      "Bash(lsof -nP -iTCP:5432 -sTCP:LISTEN)",
+      "Bash(sed -i '' 's|      - \"5432:5432\"|      - \"${POSTGRES_PORT:-5432}:5432\"|' docker-compose.yml)",
+      "Bash(python3 -)",
+      "Bash(POSTGRES_PORT=5433 docker compose up -d db)",
+      "Bash(DATABASE_URL=postgresql+psycopg://sycometrix:sycometrix@localhost:5433/sycometrix .venv/bin/python -c ' *)",
+      "Bash(POSTGRES_PORT=5433 docker compose down -v)",
+      "Bash(mkdir -p /private/tmp/claude-501/-Users-dustink-git-SycoMetrix/0406997d-cf05-44d0-81eb-8c5b474b19cc/scratchpad/mmd)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(/private/tmp/claude-501/-Users-dustink-git-SycoMetrix/0406997d-cf05-44d0-81eb-8c5b474b19cc/scratchpad/mmd/node_modules/.bin/mmdc -i docs/uml/01-project-setup.md -o /private/tmp/claude-501/-Users-dustink-git-SycoMetrix/0406997d-cf05-44d0-81eb-8c5b474b19cc/scratchpad/mmd/png.md -e png -s 1.5)",
+      "Bash(grep -n -E 'Register handlers on the blueprint|\"5432:5432\"|testpaths|target-version|Teammates without Docker|`AGENTS.md`  |\\\\| `AGENTS.md`' docs/implementation_plan/01-project-setup.md)",
+      "Bash(git rm *)",
+      "Bash(echo \"exit $?\")"
     ]
   }
 }
