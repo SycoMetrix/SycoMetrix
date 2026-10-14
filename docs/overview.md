@@ -49,3 +49,4 @@ Question → Prompt Variations → LLM Responses → Comparison → Sycophancy A
 - [Tech stack](tech_stack.md)
 - [Database design](database_er_diagrams.md)
 - [LLM API usage](API.md)
+- [Implementation plan](implementation_plan/README.md)
