@@ -1,0 +1,43 @@
+name: Validate Branch Name
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    branches:
+      - '**'
+
+permissions: {}
+
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name format
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let branchName = '';
+            
+            if (context.eventName === 'push') {
+              branchName = context.ref.replace('refs/heads/', '');
+            } else if (context.eventName === 'pull_request') {
+              branchName = context.payload.pull_request.head.ref;
+            }
+
+            // Regex breakdown:
+            // ^\d{2}-\d{2}-\d{2} -> 3 sets of 2 digits separated by hyphens
+            // -[a-zA-Z]{2}     -> Exactly 2 initials (letters) separated by a hyphen
+            // -.+              -> Followed by a hyphen and anything else
+            const branchRegex = /^\d{2}-\d{2}-\d{2}-[a-zA-Z]{2}-.+$/;
+
+            console.log(`Checking branch name: "${branchName}"`);
+
+            if (!branchRegex.test(branchName)) {
+              console.error(`Error: Branch name "${branchName}" does not follow the required format.`);
+              console.error(`Format required: 00-00-00-ab-anythingelse (e.g., 12-34-56-js-fix-login)`);
+              core.setFailed('Branch name validation failed.');
+            } else {
+              console.log('Branch name is valid!');
+            }
