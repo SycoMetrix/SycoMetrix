@@ -141,6 +141,11 @@ SycoMetrix/
 - Tests never call a real LLM. Use `FakeLLMClient` (ticket 05).
 - Tests use an in-memory SQLite database by default so they run without PostgreSQL (see ticket 01).
 
+### Design docs
+
+- Every ticket adds or updates a UML design doc in [`docs/uml/`](../uml/README.md), in the same PR as the code. Name it after the ticket, e.g. `docs/uml/05-llm-client.md`.
+- Draw diagrams in Mermaid from the code as built (real class and function names), and add a row for the doc to the table in `docs/uml/README.md`.
+
 ### Git workflow
 
 - One ticket per branch and PR. Name branches like the existing ones, e.g. `10-20-26-DK-02-database-models`.
