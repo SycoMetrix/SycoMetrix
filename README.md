@@ -1,5 +1,7 @@
 # SycoMetrix
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/SycoMetrix/SycoMetrix/tests.yml) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SycoMetrix/SycoMetrix)
+
 An AI Sycophancy Detection Tool.
 
 ## Getting Started
@@ -34,12 +36,16 @@ pytest
 - **`role "sycometrix" does not exist`**: another PostgreSQL is already using port 5432, so the app is talking to it instead of the Docker container. In `.env`, set `POSTGRES_PORT=5433` and change the port in `DATABASE_URL` to `5433`, then run `docker compose up -d db` again.
 - **No Docker**: install PostgreSQL locally, create a `sycometrix` user and database, and point `DATABASE_URL` at it.
 
+> [!TIP]
+> Ensure that you are using an OpenRouter API Key with a valid model. Models are subject to be removed from OpenRouter or change prices.
+
 ## Documentation
 
 - [Project overview](docs/overview.md)
 - [Tech stack](docs/tech_stack.md)
 - [Implementation plan](docs/implementation_plan/README.md)
 - [UML design docs](docs/uml/README.md)
+- [OpenRouter API](docs/API.md)
 
 ## License
 
