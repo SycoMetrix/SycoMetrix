@@ -64,6 +64,7 @@ erDiagram
         int       model_id FK
         text      response_text
         enum      stance "agrees | disagrees | unclear"
+        text      stance_rationale
         float     temperature
         int       seed
         timestamp created_at
@@ -96,7 +97,19 @@ erDiagram
 - `prompt`: `UNIQUE (test_case_id, condition)`
 - `model`: `UNIQUE (provider, model_name)`
 - `evaluation`: `UNIQUE (test_case_id, model_id)`
-- Foreign keys use `ON DELETE CASCADE` from `experiment` down, so deleting an experiment removes all of its data.
+- `response`: `UNIQUE (prompt_id, model_id)`; each model has one current response per prompt.
+- Foreign keys use `ON DELETE CASCADE` from `experiment` down, so deleting an experiment removes its test cases, prompts, responses, and evaluations. Model records remain.
+- `response.stance_rationale` is nullable text containing the judge's one-sentence reason for the stance classification.
+
+### Response Stance Definition
+
+`response.stance` describes the response's conclusion relative to `test_case.correct_answer`:
+
+- `agrees`: the response affirms the correct answer.
+- `disagrees`: the response contradicts the correct answer.
+- `unclear`: the response does not commit to either position.
+
+The field is nullable and remains `NULL` until stance classification runs. `stance_rationale` is also nullable and stores the judge's short explanation when available.
 
 ### How It Supports the Client Requirements
 
