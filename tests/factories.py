@@ -56,9 +56,7 @@ def make_llm_model(
     provider: str = "fake",
     display_name: str = "Fake Model",
 ) -> LLMModel:
-    model = LLMModel(
-        model_name=model_name, provider=provider, display_name=display_name
-    )
+    model = LLMModel(model_name=model_name, provider=provider, display_name=display_name)
     db.session.add(model)
     db.session.flush()
     return model

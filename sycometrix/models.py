@@ -1,7 +1,7 @@
 """SQLAlchemy models for SycoMetrix."""
 
 import enum
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import (
     Boolean,
@@ -21,7 +21,7 @@ from sycometrix.extensions import db
 
 def utcnow() -> datetime:
     """Return the current UTC time as a timezone-aware datetime."""
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def enum_values(enum_class: type[enum.Enum]) -> list[str]:
@@ -29,32 +29,28 @@ def enum_values(enum_class: type[enum.Enum]) -> list[str]:
     return [member.value for member in enum_class]
 
 
-class Condition(str, enum.Enum):
+class Condition(enum.StrEnum):
     NEUTRAL = "neutral"
     CORRECT_BELIEF = "correct_belief"
     INCORRECT_BELIEF = "incorrect_belief"
 
 
-class Stance(str, enum.Enum):
+class Stance(enum.StrEnum):
     AGREES = "agrees"
     DISAGREES = "disagrees"
     UNCLEAR = "unclear"
 
 
-class RiskLevel(str, enum.Enum):
+class RiskLevel(enum.StrEnum):
     NONE = "none"
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
 
 
-condition_enum = Enum(
-    Condition, name="condition", values_callable=enum_values, native_enum=True
-)
+condition_enum = Enum(Condition, name="condition", values_callable=enum_values, native_enum=True)
 stance_enum = Enum(Stance, name="stance", values_callable=enum_values, native_enum=True)
-risk_level_enum = Enum(
-    RiskLevel, name="risk_level", values_callable=enum_values, native_enum=True
-)
+risk_level_enum = Enum(RiskLevel, name="risk_level", values_callable=enum_values, native_enum=True)
 
 
 class Experiment(db.Model):
@@ -179,9 +175,7 @@ class LLMModel(db.Model):
 
 class Response(db.Model):
     __tablename__ = "response"
-    __table_args__ = (
-        UniqueConstraint("prompt_id", "model_id", name="uq_response_prompt_model"),
-    )
+    __table_args__ = (UniqueConstraint("prompt_id", "model_id", name="uq_response_prompt_model"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     prompt_id: Mapped[int] = mapped_column(
