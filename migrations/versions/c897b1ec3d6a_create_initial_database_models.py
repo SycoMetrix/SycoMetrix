@@ -109,3 +109,9 @@ def downgrade():
     op.drop_table("model")
     op.drop_table("experiment")
     # ### end Alembic commands ###
+
+    # drop_table leaves PostgreSQL native enum types behind; remove them so
+    # upgrade can run again. checkfirst makes this a no-op on SQLite.
+    bind = op.get_bind()
+    for enum_name in ("stance", "condition", "risk_level"):
+        sa.Enum(name=enum_name).drop(bind, checkfirst=True)

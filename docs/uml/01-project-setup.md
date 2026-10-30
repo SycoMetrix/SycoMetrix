@@ -14,7 +14,7 @@ flowchart TB
         init["__init__.py<br/>create_app()"]
         config["config.py<br/>Config classes"]
         ext["extensions.py<br/>db, migrate, Base"]
-        models["models.py<br/>(empty until ticket 02)"]
+        models["models.py<br/>(see 02-database-models)"]
         subgraph api["api/"]
             apiinit["__init__.py<br/>api_bp, ApiError, api_error()"]
         end
@@ -36,7 +36,7 @@ flowchart TB
     tests --> ext
 
     classDef future stroke-dasharray: 5 5
-    class models,services future
+    class services future
 ```
 
 Source: [`sycometrix/`](../../sycometrix/)
