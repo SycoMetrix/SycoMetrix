@@ -1,6 +1,4 @@
 """Check the prompt generator against the client's examples and ticket rules.
-
-AI assistance: ChatGPT (OpenAI), https://chatgpt.com/; authorized by the team.
 """
 
 import pytest

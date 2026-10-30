@@ -50,5 +50,3 @@ Source: [prompts.py](../../sycometrix/services/prompts.py),
   statements; it does not verify their factual correctness or rewrite questions.
 - Manual prompt editing, persistence, API endpoints, and additional conditions
   belong to later work.
-
-AI assistance: ChatGPT (OpenAI), https://chatgpt.com/; authorized by the team.

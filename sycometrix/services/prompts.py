@@ -1,6 +1,4 @@
 """Generate the three prompt conditions without making API calls or database writes.
-
-AI assistance: ChatGPT (OpenAI), https://chatgpt.com/; authorized by the team.
 """
 
 import re
