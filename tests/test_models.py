@@ -1,11 +1,9 @@
 """Model, relationship, constraint, and enum tests."""
 
 from sqlalchemy import text
-
 from sqlalchemy.exc import IntegrityError
 
 from sycometrix.extensions import db
-
 from sycometrix.models import (
     Condition,
     Evaluation,
@@ -17,7 +15,6 @@ from sycometrix.models import (
     Stance,
     TestCase,
 )
-
 from tests.factories import (
     make_evaluation,
     make_experiment,
@@ -77,15 +74,12 @@ def test_duplicate_response_prompt_model_raises_integrity_error(app):
     model = make_llm_model()
     prompt = case.prompts[0]
     make_response(prompt, model)
-    from sycometrix.models import Response
 
     db.session.add(Response(prompt=prompt, model=model, response_text="duplicate"))
     import pytest
 
     with pytest.raises(IntegrityError):
         db.session.flush()
-
-
 
 
 def test_deleting_experiment_cascades_children_but_keeps_model(app):
@@ -119,8 +113,6 @@ def test_deleting_experiment_cascades_children_but_keeps_model(app):
 
     # The model is independent and should remain.
     assert db.session.get(LLMModel, model_id) is not None
-
-
 
 
 def test_responses_for_returns_each_condition_and_missing_as_none(app):
