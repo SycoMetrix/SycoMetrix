@@ -59,3 +59,7 @@ def _handle_http_exception(e: HTTPException) -> HTTPException | tuple[Response, 
 @api_bp.get("/health")
 def health() -> Response:
     return jsonify({"status": "ok"})
+
+
+# Register routes after api_bp and the shared error helpers are defined.
+from sycometrix.api import llm_models  # noqa: E402, F401

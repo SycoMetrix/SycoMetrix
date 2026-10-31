@@ -14,6 +14,9 @@ def create_app(config_class: type[Config] = DevelopmentConfig) -> Flask:
 
     from sycometrix import models  # noqa: F401  (registers models with SQLAlchemy)
     from sycometrix.api import api_bp
+    from sycometrix.cli import llm_ping, seed_models
 
     app.register_blueprint(api_bp, url_prefix="/api")
+    app.cli.add_command(seed_models)
+    app.cli.add_command(llm_ping)
     return app
