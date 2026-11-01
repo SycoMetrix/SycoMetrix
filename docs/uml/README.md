@@ -11,6 +11,8 @@ Diagrams are written in [Mermaid](https://mermaid.js.org/), which GitHub renders
 | 01 | [Project setup](01-project-setup.md) | Package, class, sequence, deployment |
 | 02 | [Database models](02-database-models.md) | Package, class, sequence |
 | 03 | [Prompt variations](03-prompt-variations.md) | Sequence |
+| 05 | [LLM client](05-llm-client.md)           | Class, sequence, component                |
+
 
 The data model is documented in [Database design](../database_er_diagrams.md) (ER diagram).
 

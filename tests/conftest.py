@@ -3,6 +3,7 @@ import pytest
 from sycometrix import create_app
 from sycometrix.config import TestingConfig
 from sycometrix.extensions import db
+from sycometrix.services.llm_client import FakeLLMClient
 
 
 @pytest.fixture
@@ -23,3 +24,11 @@ def client(app):
 @pytest.fixture
 def db_session(app):
     return db.session
+
+
+@pytest.fixture
+def fake_llm(app):
+    client = FakeLLMClient()
+    app.extensions["llm_client"] = client
+    yield client
+    app.extensions.pop("llm_client", None)
