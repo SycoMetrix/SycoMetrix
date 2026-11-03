@@ -11,6 +11,7 @@ Diagrams are written in [Mermaid](https://mermaid.js.org/), which GitHub renders
 | 01 | [Project setup](01-project-setup.md) | Package, class, sequence, deployment |
 | 02 | [Database models](02-database-models.md) | Package, class, sequence |
 | 03 | [Prompt variations](03-prompt-variations.md) | Sequence |
+| 04 | [Experiment API](04-experiment-api.md)         | Package, sequence, state |
 | 05 | [LLM client](05-llm-client.md)           | Class, sequence, component                |
 
 

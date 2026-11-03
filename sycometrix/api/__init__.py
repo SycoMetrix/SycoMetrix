@@ -62,4 +62,8 @@ def health() -> Response:
 
 
 # Register routes after api_bp and the shared error helpers are defined.
-from sycometrix.api import llm_models  # noqa: E402, F401
+from sycometrix.api import (  # noqa: E402, F401
+    experiments,
+    llm_models,
+    test_cases,
+)

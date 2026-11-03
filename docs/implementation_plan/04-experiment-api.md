@@ -13,31 +13,31 @@ Build the JSON API for creating, listing, viewing, editing, and deleting experim
 
 ## Files
 
-| File                                  | Change |
-|---------------------------------------|--------|
-| `sycometrix/services/test_cases.py`   | Create: create, update, delete logic |
-| `sycometrix/api/serializers.py`       | Create: model → dict functions |
-| `sycometrix/api/validation.py`        | Create: small request-body helpers |
-| `sycometrix/api/experiments.py`       | Create: experiment routes |
-| `sycometrix/api/test_cases.py`        | Create: test case routes |
+| File                                  | Change                                                |
+|---------------------------------------|--------                                               |
+| `sycometrix/services/test_cases.py`   | Create: create, update, delete logic                  |
+| `sycometrix/api/serializers.py`       | Create: model → dict functions                        |
+| `sycometrix/api/validation.py`        | Create: small request-body helpers                    |
+| `sycometrix/api/experiments.py`       | Create: experiment routes                             |
+| `sycometrix/api/test_cases.py`        | Create: test case routes                              |
 | `sycometrix/api/__init__.py`          | Import the route modules so they register on `api_bp` |
-| `tests/factories.py`                  | Update `make_test_case` to use `create_test_case` |
-| `tests/test_api_experiments.py`       | Create |
-| `tests/test_api_test_cases.py`        | Create |
+| `tests/factories.py`                  | Update `make_test_case` to use `create_test_case`     |
+| `tests/test_api_experiments.py`       | Create                                                |
+| `tests/test_api_test_cases.py`        | Create                                                |
 
 ## Endpoints
 
-| Method | Path                                   | Body                                                         | Returns |
-|--------|----------------------------------------|--------------------------------------------------------------|---------|
-| GET    | `/api/experiments`                     | —                                                            | `200` list of experiment summaries, newest first |
-| POST   | `/api/experiments`                     | `{name, description?}`                                       | `201` experiment detail |
-| GET    | `/api/experiments/<id>`                | —                                                            | `200` experiment detail |
-| PATCH  | `/api/experiments/<id>`                | `{name?, description?}`                                      | `200` experiment detail |
-| DELETE | `/api/experiments/<id>`                | —                                                            | `204` |
-| POST   | `/api/experiments/<id>/test-cases`     | `{question, correct_answer, incorrect_belief, category?}`    | `201` test case detail |
-| GET    | `/api/test-cases/<id>`                 | —                                                            | `200` test case detail |
-| PATCH  | `/api/test-cases/<id>`                 | any of `{question, correct_answer, incorrect_belief, category}` | `200` test case detail |
-| DELETE | `/api/test-cases/<id>`                 | —                                                            | `204` |
+| Method | Path                                   | Body                                                            | Returns                                          |
+|--------|----------------------------------------|-----------------------------------------------------------------|--------------------------------------------------|
+| GET    | `/api/experiments`                     | —                                                               | `200` list of experiment summaries, newest first |
+| POST   | `/api/experiments`                     | `{name, description?}`                                          | `201` experiment detail                          |
+| GET    | `/api/experiments/<id>`                | —                                                               | `200` experiment detail                          |
+| PATCH  | `/api/experiments/<id>`                | `{name?, description?}`                                         | `200` experiment detail                          |
+| DELETE | `/api/experiments/<id>`                | —                                                               | `204`                                            |
+| POST   | `/api/experiments/<id>/test-cases`     | `{question, correct_answer, incorrect_belief, category?}`       | `201` test case detail                           |
+| GET    | `/api/test-cases/<id>`                 | —                                                               | `200` test case detail                           |
+| PATCH  | `/api/test-cases/<id>`                 | any of `{question, correct_answer, incorrect_belief, category}` | `200` test case detail                           |
+| DELETE | `/api/test-cases/<id>`                 | —                                                               | `204`                                            |
 
 ## JSON Shapes
 
@@ -146,12 +146,14 @@ Limits: experiment `name` 200, `description` 2000, `question`/`correct_answer`/`
 Use the `client` fixture and call the HTTP endpoints.
 
 `tests/test_api_experiments.py`:
+
 - Create → get → patch → list → delete, checking status codes and bodies at each step.
 - `POST` with a missing or blank `name` returns 400 `validation_error`.
 - `GET`, `PATCH`, and `DELETE` on a missing ID return 404 `not_found`.
 - Deleting an experiment removes its test cases (`GET /api/test-cases/<id>` → 404 afterward).
 
 `tests/test_api_test_cases.py`:
+
 - Creating a test case returns three prompts whose text matches `generate_prompts`.
 - Each required field missing → 400 naming that field.
 - Creating under a missing experiment → 404.
