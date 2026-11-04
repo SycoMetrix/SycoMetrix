@@ -4,7 +4,7 @@ from flask import Flask
 
 from sycometrix.config import Config, DevelopmentConfig
 from sycometrix.extensions import db, migrate
-
+from sycometrix.pages import pages_bp
 
 def create_app(config_class: type[Config] = DevelopmentConfig) -> Flask:
     app = Flask(__name__)
@@ -18,6 +18,7 @@ def create_app(config_class: type[Config] = DevelopmentConfig) -> Flask:
     from sycometrix.cli import llm_ping, run_experiment, seed_models
 
     app.register_blueprint(api_bp, url_prefix="/api")
+    app.register_blueprint(pages_bp)
     app.cli.add_command(seed_models)
     app.cli.add_command(llm_ping)
     app.cli.add_command(run_experiment)
