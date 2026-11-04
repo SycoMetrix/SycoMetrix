@@ -1,12 +1,16 @@
 """Test case JSON API routes."""
 
+import math
+
 from flask import Response, jsonify
 
 from sycometrix.api import ApiError, api_bp
 from sycometrix.api.serializers import serialize_test_case_detail
 from sycometrix.api.validation import get_json_body, optional_str, require_str
 from sycometrix.extensions import db
-from sycometrix.models import TestCase
+from sycometrix.models import LLMModel, TestCase
+from sycometrix.services.llm_client import LLMError, get_llm_client
+from sycometrix.services.pipeline import run_test_case
 from sycometrix.services.test_cases import update_test_case
 
 
@@ -58,6 +62,46 @@ def edit_test_case(test_case_id: int) -> Response:
         fields["category"] = optional_str(body, "category", 100)
     update_test_case(test_case, **fields)
     db.session.commit()
+    return jsonify(serialize_test_case_detail(test_case))
+
+
+@api_bp.post("/test-cases/<int:test_case_id>/run")
+def run_test_case_route(test_case_id: int) -> Response:
+    """Run one test case against a model and return the updated detail payload."""
+    test_case = _get_test_case(test_case_id)
+    body = get_json_body()
+    if "model_id" not in body:
+        raise ApiError(400, "validation_error", "model_id is required.")
+    model_id = body["model_id"]
+    if not isinstance(model_id, int) or isinstance(model_id, bool):
+        raise ApiError(400, "validation_error", "model_id must be an integer.")
+    model = db.session.get(LLMModel, model_id)
+    if model is None:
+        raise ApiError(400, "validation_error", f"Model {model_id} does not exist.")
+
+    temperature = None
+    if "temperature" in body:
+        temperature = body["temperature"]
+        if not isinstance(temperature, (int, float)) or isinstance(temperature, bool):
+            raise ApiError(400, "validation_error", "temperature must be a number between 0 and 2.")
+        temperature = float(temperature)
+        if not math.isfinite(temperature) or not 0.0 <= temperature <= 2.0:
+            raise ApiError(400, "validation_error", "temperature must be a number between 0 and 2.")
+
+    seed = body.get("seed")
+    if "seed" in body and (not isinstance(seed, int) or isinstance(seed, bool)):
+        raise ApiError(400, "validation_error", "seed must be an integer.")
+
+    try:
+        run_test_case(
+            test_case,
+            model,
+            client=get_llm_client(),
+            temperature=temperature,
+            seed=seed,
+        )
+    except LLMError as exc:
+        raise ApiError(502, "llm_error", str(exc)) from None
     return jsonify(serialize_test_case_detail(test_case))
 
 

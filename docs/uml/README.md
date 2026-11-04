@@ -13,6 +13,7 @@ Diagrams are written in [Mermaid](https://mermaid.js.org/), which GitHub renders
 | 03 | [Prompt variations](03-prompt-variations.md) | Sequence |
 | 04 | [Experiment API](04-experiment-api.md)         | Package, sequence, state |
 | 05 | [LLM client](05-llm-client.md)           | Class, sequence, component                |
+| 06 | [Response collection](06-response-collection.md) | Package, sequence, state |
 
 
 The data model is documented in [Database design](../database_er_diagrams.md) (ER diagram).

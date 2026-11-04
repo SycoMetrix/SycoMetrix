@@ -2,7 +2,10 @@
 
 from datetime import UTC
 
-from sycometrix.models import Experiment, LLMModel, TestCase
+from sqlalchemy import select
+
+from sycometrix.extensions import db
+from sycometrix.models import Condition, Experiment, LLMModel, Response, TestCase
 
 
 def _timestamp(value) -> str:
@@ -78,6 +81,54 @@ def serialize_experiment_detail(experiment: Experiment) -> dict:
         ],
     }
 
+def serialize_response(response: Response | None) -> dict | None:
+    """Serialize a single response or return None when the response is missing."""
+    if response is None:
+        return None
+    return {
+        "id": response.id,
+        "response_text": response.response_text,
+        "stance": response.stance.value if response.stance is not None else None,
+        "stance_rationale": response.stance_rationale,
+        "temperature": response.temperature,
+        "seed": response.seed,
+        "created_at": _timestamp(response.created_at),
+    }
+
+
+def serialize_test_case_results(test_case: TestCase) -> list[dict]:
+    """Serialize a test case's per-model collection results."""
+    model_ids = {
+        response.model_id
+        for prompt in test_case.prompts
+        for response in prompt.responses
+    }
+    if not model_ids:
+        return []
+    models = list(
+        db.session.scalars(
+            select(LLMModel)
+            .where(LLMModel.id.in_(sorted(model_ids)))
+            .order_by(LLMModel.display_name, LLMModel.id)
+        )
+    )
+    results = []
+    for model in models:
+        responses = test_case.responses_for(model.id)
+        ordered_responses = {
+            condition_name: serialize_response(responses[Condition(condition_name)])
+            for condition_name in ("neutral", "correct_belief", "incorrect_belief")
+        }
+        results.append(
+            {
+                "model": serialize_llm_model(model),
+                "responses": ordered_responses,
+                "evaluation": None,
+            }
+        )
+    return results
+
+
 def serialize_test_case_detail(test_case: TestCase) -> dict:
     """Serialize a test case detail.
     Parameters:
@@ -102,7 +153,7 @@ def serialize_test_case_detail(test_case: TestCase) -> dict:
             }
             for prompt in prompts
         ],
-        "results": [],
+        "results": serialize_test_case_results(test_case),
     }
 
 
