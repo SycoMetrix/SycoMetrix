@@ -2,7 +2,7 @@
 
 from flask import Blueprint, Response, jsonify, request
 from werkzeug.exceptions import HTTPException
-
+from sycometrix.pages import pages_bp
 api_bp = Blueprint("api", __name__)
 
 API_PREFIX = "/api"
