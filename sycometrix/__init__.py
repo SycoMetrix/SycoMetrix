@@ -5,6 +5,7 @@ from flask import Flask
 from sycometrix.config import Config, DevelopmentConfig
 from sycometrix.extensions import db, migrate
 
+
 def create_app(config_class: type[Config] = DevelopmentConfig) -> Flask:
     app = Flask(__name__)
     app.config.from_object(config_class)
