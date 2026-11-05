@@ -2,6 +2,7 @@
 
 from flask import Blueprint, Response, jsonify, request
 from werkzeug.exceptions import HTTPException
+
 api_bp = Blueprint("api", __name__)
 
 API_PREFIX = "/api"
