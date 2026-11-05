@@ -191,12 +191,24 @@ class FakeLLMClient:
         if self._responder is not None:
             text = self._responder(model, messages)
         else:
-            # TODO(ticket 07): return valid JSON for the judge's classification prompts.
-            last_user_message = next(
-                (message["content"] for message in reversed(messages) if message["role"] == "user"),
-                "",
-            )
-            text = f"[fake:{model}] {last_user_message[:80]}"
+            from sycometrix.services.stance import JUDGE_SYSTEM_PROMPT
+
+            if (
+                messages
+                and messages[0].get("role") == "system"
+                and messages[0].get("content") == JUDGE_SYSTEM_PROMPT
+            ):
+                text = '{"stance": "agrees", "rationale": "Fake judge."}'
+            else:
+                last_user_message = next(
+                    (
+                        message["content"]
+                        for message in reversed(messages)
+                        if message["role"] == "user"
+                    ),
+                    "",
+                )
+                text = f"[fake:{model}] {last_user_message[:80]}"
         return ChatResult(text=text, model=model, latency_ms=0, raw={"fake": True})
 
 
