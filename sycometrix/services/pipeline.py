@@ -6,6 +6,7 @@ from sycometrix.extensions import db
 from sycometrix.models import LLMModel, TestCase
 from sycometrix.services.collection import collect_responses
 from sycometrix.services.llm_client import LLMClient, get_llm_client
+from sycometrix.services.stance import classify_test_case
 
 
 def run_test_case(
@@ -16,7 +17,7 @@ def run_test_case(
     temperature: float | None = None,
     seed: int | None = None,
 ) -> None:
-    """Collect responses for one model, then commit the case's updated state."""
+    """Collect responses, classify stances, and commit the case's updated state."""
     if client is None:
         client = get_llm_client()
     if temperature is None:
@@ -30,6 +31,12 @@ def run_test_case(
             temperature=temperature,
             seed=seed,
             max_tokens=max_tokens,
+        )
+        classify_test_case(
+            test_case,
+            model,
+            client,
+            current_app.config["JUDGE_MODEL"],
         )
         db.session.commit()
     except Exception:

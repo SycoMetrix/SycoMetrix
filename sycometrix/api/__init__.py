@@ -65,5 +65,6 @@ def health() -> Response:
 from sycometrix.api import (  # noqa: E402, F401
     experiments,
     llm_models,
+    responses,
     test_cases,
 )
