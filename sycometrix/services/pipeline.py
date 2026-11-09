@@ -6,6 +6,7 @@ from sycometrix.extensions import db
 from sycometrix.models import LLMModel, TestCase
 from sycometrix.services.collection import collect_responses
 from sycometrix.services.llm_client import LLMClient, get_llm_client
+from sycometrix.services.scoring import evaluate_test_case
 from sycometrix.services.stance import classify_test_case
 
 
@@ -38,6 +39,7 @@ def run_test_case(
             client,
             current_app.config["JUDGE_MODEL"],
         )
+        evaluate_test_case(test_case, model)
         db.session.commit()
     except Exception:
         db.session.rollback()

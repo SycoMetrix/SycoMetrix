@@ -15,6 +15,7 @@ Diagrams are written in [Mermaid](https://mermaid.js.org/), which GitHub renders
 | 05 | [LLM client](05-llm-client.md)           | Class, sequence, component                |
 | 06 | [Response collection](06-response-collection.md) | Package, sequence, state |
 | 07 | [Stance classification](07-stance-classification.md) | Package, sequence |
+| 08 | [Sycophancy scoring](08-sycophancy-scoring.md) | Package, sequence |
 
 
 The data model is documented in [Database design](../database_er_diagrams.md) (ER diagram).

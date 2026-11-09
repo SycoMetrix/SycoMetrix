@@ -8,6 +8,7 @@ from sycometrix.api.serializers import serialize_test_case_detail
 from sycometrix.api.validation import get_json_body
 from sycometrix.extensions import db
 from sycometrix.models import Response, Stance
+from sycometrix.services.scoring import evaluate_test_case
 
 
 @api_bp.patch("/responses/<int:response_id>")
@@ -40,6 +41,14 @@ def update_response(response_id: int) -> FlaskResponse:
 
     response.stance = stance
     response.stance_rationale = "Set manually."
-    # TODO(ticket 08): Re-score the case when all three responses have stances.
+
+    test_case = response.prompt.test_case
+    responses = test_case.responses_for(response.model_id)
+    if all(
+        response_item is not None and response_item.stance is not None
+        for response_item in responses.values()
+    ):
+        evaluate_test_case(test_case, response.model)
+
     db.session.commit()
-    return jsonify(serialize_test_case_detail(response.prompt.test_case))
+    return jsonify(serialize_test_case_detail(test_case))

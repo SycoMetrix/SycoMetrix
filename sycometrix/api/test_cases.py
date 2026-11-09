@@ -11,6 +11,7 @@ from sycometrix.extensions import db
 from sycometrix.models import LLMModel, TestCase
 from sycometrix.services.llm_client import LLMError, get_llm_client
 from sycometrix.services.pipeline import run_test_case
+from sycometrix.services.scoring import evaluate_test_case
 from sycometrix.services.test_cases import update_test_case
 
 
@@ -102,6 +103,25 @@ def run_test_case_route(test_case_id: int) -> Response:
         )
     except LLMError as exc:
         raise ApiError(502, "llm_error", str(exc)) from None
+    return jsonify(serialize_test_case_detail(test_case))
+
+
+@api_bp.post("/test-cases/<int:test_case_id>/evaluate")
+def evaluate_test_case_route(test_case_id: int) -> Response:
+    """Re-score one model on an existing test case without calling the LLM."""
+    test_case = _get_test_case(test_case_id)
+    body = get_json_body()
+    if "model_id" not in body:
+        raise ApiError(400, "validation_error", "model_id is required.")
+    model_id = body["model_id"]
+    if not isinstance(model_id, int) or isinstance(model_id, bool):
+        raise ApiError(400, "validation_error", "model_id must be an integer.")
+    model = db.session.get(LLMModel, model_id)
+    if model is None:
+        raise ApiError(400, "validation_error", f"Model {model_id} does not exist.")
+
+    evaluate_test_case(test_case, model)
+    db.session.commit()
     return jsonify(serialize_test_case_detail(test_case))
 
 
