@@ -43,7 +43,9 @@ def make_test_case(
             case.prompts.append(
                 Prompt(
                     condition=condition,
-                    prompt_text=f"Placeholder {condition.value} prompt for: {question}",
+                    prompt_text=(
+                        f"Placeholder {condition.value.replace('_', ' ')} prompt for: {question}"
+                    ),
                 )
             )
     db.session.add(case)

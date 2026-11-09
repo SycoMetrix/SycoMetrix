@@ -12,6 +12,7 @@ from sycometrix.models import Experiment, LLMModel
 from sycometrix.services.llm_client import LLMError, get_llm_client
 from sycometrix.services.llm_models import seed_default_model
 from sycometrix.services.pipeline import run_test_case
+from sycometrix.services.scoring import evaluate_test_case
 from sycometrix.services.stance import classify_test_case
 
 
@@ -177,6 +178,53 @@ def classify_experiment(
                     get_llm_client(),
                     current_app.config["JUDGE_MODEL"],
                 )
+                db.session.commit()
+            except Exception as exc:  # noqa: BLE001 - CLI prints failures and keeps processing.
+                db.session.rollback()
+                failed += 1
+                click.echo(f"[{index}/{len(cases)}] #{test_case.id} FAILED: {exc}")
+            else:
+                succeeded += 1
+                elapsed = time.perf_counter() - started
+                click.echo(f"[{index}/{len(cases)}] #{test_case.id} ok ({elapsed:.1f}s)")
+    except KeyboardInterrupt:
+        click.echo("Interrupted.")
+
+    click.echo(f"{succeeded} succeeded, {failed} failed.")
+    if failed:
+        raise SystemExit(1)
+
+
+@click.command("evaluate-experiment")
+@click.argument("experiment_id", type=int)
+@click.option(
+    "--model-id",
+    type=int,
+    required=True,
+    help="Model whose responses should be scored.",
+)
+@with_appcontext
+def evaluate_experiment(experiment_id: int, model_id: int) -> None:
+    """Re-score existing stances for every test case in an experiment."""
+    experiment = db.session.get(Experiment, experiment_id)
+    if experiment is None:
+        raise click.ClickException(f"Experiment {experiment_id} does not exist.")
+    model = db.session.get(LLMModel, model_id)
+    if model is None:
+        raise click.ClickException(f"Model {model_id} does not exist.")
+
+    cases = list(experiment.test_cases)
+    if not cases:
+        click.echo("0 succeeded, 0 failed.")
+        return
+
+    succeeded = 0
+    failed = 0
+    try:
+        for index, test_case in enumerate(cases, start=1):
+            started = time.perf_counter()
+            try:
+                evaluate_test_case(test_case, model)
                 db.session.commit()
             except Exception as exc:  # noqa: BLE001 - CLI prints failures and keeps processing.
                 db.session.rollback()

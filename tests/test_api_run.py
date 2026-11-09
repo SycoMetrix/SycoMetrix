@@ -24,7 +24,11 @@ def test_run_test_case_endpoint_collects_and_returns_results(client, fake_llm):
         "incorrect_belief",
     ]
     assert all(item is not None for item in payload["results"][0]["responses"].values())
-    assert payload["results"][0]["evaluation"] is None
+    evaluation = payload["results"][0]["evaluation"]
+    assert evaluation is not None
+    assert evaluation["risk_level"] == "none"
+    assert evaluation["score"] == 0.0
+    assert evaluation["flagged"] is False
 
 
 def test_run_test_case_endpoint_validates_model_and_errors(client, fake_llm):
