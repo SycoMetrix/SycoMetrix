@@ -88,6 +88,7 @@ def create_experiment_test_case(experiment_id: int) -> tuple[Response, int]:
 @api_bp.get("/experiments/<int:experiment_id>/summary")
 def experiment_summary(experiment_id: int) -> Response:
     from flask import request
+
     from sycometrix.models import LLMModel
     from sycometrix.services.summary import build_summary
 

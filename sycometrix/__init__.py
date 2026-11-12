@@ -1,4 +1,3 @@
-
 """SycoMetrix Flask application."""
 
 from flask import Flask
@@ -16,7 +15,6 @@ def create_app(config_class: type[Config] = DevelopmentConfig) -> Flask:
 
     from sycometrix import models  # noqa: F401  (registers models with SQLAlchemy)
     from sycometrix.api import api_bp
-    from sycometrix.pages import pages_bp
     from sycometrix.cli import (
         classify_experiment,
         evaluate_experiment,
@@ -24,6 +22,7 @@ def create_app(config_class: type[Config] = DevelopmentConfig) -> Flask:
         run_experiment,
         seed_models,
     )
+    from sycometrix.pages import pages_bp
 
     app.register_blueprint(api_bp, url_prefix="/api")
     app.register_blueprint(pages_bp)
