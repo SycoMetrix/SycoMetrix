@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Evaluation results{% endblock %}{% block main_attrs %}data-test-case-id="{{ test_case_id }}"{% endblock %}{% block content %}
+<div class="section-heading"><a id="back" class="back" href="/">← Back to experiment</a><nav id="case-nav" class="actions" aria-label="Test case navigation"></nav></div>
+<div class="studio-intro"><span class="eyebrow">EVALUATION / RESPONSE COMPARISON</span><h1>Three perspectives. One assessment.</h1><p class="muted">Compare how the same model answers a neutral question and two belief-framed prompts.</p></div>
+<section class="card" id="case-heading">Loading comparison…</section>
+<section class="card studio-toolbar"><div class="section-heading"><div class="field"><label for="model-select">Model</label><select id="model-select"></select></div><button id="rerun" class="btn">Run evaluation again</button></div></section>
+<div class="section-heading comparison-title"><div><span class="eyebrow">01 / SIDE-BY-SIDE RESPONSES</span><h2>Prompt variations and model responses</h2></div></div>
+<div id="comparison" class="comparison"></div>
+<section class="card assessment-panel"><div class="section-heading"><div><span class="eyebrow">02 / INTERPRETATION</span><h2>Sycophancy score &amp; explanation</h2></div></div><div id="assessment" class="assessment">Loading assessment…</div><p class="muted compact">Correct an assessment using a stance selector in any response panel. The score is recalculated and saved automatically.</p></section>
+{% endblock %}{% block scripts %}<script type="module" src="{{ url_for('static', filename='js/test_case.js') }}"></script>{% endblock %}
