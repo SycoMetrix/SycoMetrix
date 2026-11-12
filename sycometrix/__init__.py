@@ -22,8 +22,11 @@ def create_app(config_class: type[Config] = DevelopmentConfig) -> Flask:
         run_experiment,
         seed_models,
     )
+    from sycometrix.pages import pages_bp
 
     app.register_blueprint(api_bp, url_prefix="/api")
+    app.register_blueprint(pages_bp)
+
     app.cli.add_command(seed_models)
     app.cli.add_command(llm_ping)
     app.cli.add_command(run_experiment)

@@ -28,7 +28,7 @@ def list_experiments() -> Response:
         select(Experiment, func.count(TestCase.id))
         .outerjoin(TestCase)
         .group_by(Experiment.id)
-        .order_by(Experiment.created_at.desc())
+        .order_by(Experiment.created_at.desc(), Experiment.id.desc())
     ).all()
     return jsonify([serialize_experiment_summary(experiment, count) for experiment, count in rows])
 
@@ -83,3 +83,35 @@ def create_experiment_test_case(experiment_id: int) -> tuple[Response, int]:
     )
     db.session.commit()
     return jsonify(serialize_test_case_detail(test_case)), 201
+
+
+@api_bp.get("/experiments/<int:experiment_id>/summary")
+def experiment_summary(experiment_id: int) -> Response:
+    from flask import request
+
+    from sycometrix.models import LLMModel
+    from sycometrix.services.summary import build_summary
+
+    _get_experiment(experiment_id)
+
+    raw = request.args.get("model_id")
+    model_id = None
+
+    if raw is not None:
+        if not raw.isdecimal() or int(raw) < 1:
+            raise ApiError(
+                400,
+                "validation_error",
+                "model_id must be a valid integer.",
+            )
+
+        model_id = int(raw)
+
+        if db.session.get(LLMModel, model_id) is None:
+            raise ApiError(
+                400,
+                "validation_error",
+                f"Model {model_id} does not exist.",
+            )
+
+    return jsonify(build_summary(experiment_id, model_id))
