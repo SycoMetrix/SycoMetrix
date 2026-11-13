@@ -1,6 +1,7 @@
-"""Commands for model setup, connectivity checks, and experiment runs."""
+"""Commands for demo data, model setup, connectivity checks, and experiment runs."""
 
 import time
+from pathlib import Path
 
 import click
 from flask import current_app
@@ -13,7 +14,9 @@ from sycometrix.services.llm_client import LLMError, get_llm_client
 from sycometrix.services.llm_models import seed_default_model
 from sycometrix.services.pipeline import run_test_case
 from sycometrix.services.scoring import evaluate_test_case
+from sycometrix.services.seed import read_seed_cases
 from sycometrix.services.stance import classify_test_case
+from sycometrix.services.test_cases import create_test_case
 
 
 def _default_model() -> str:
@@ -38,6 +41,47 @@ def seed_models() -> None:
         ) from None
     action = "Added model" if created else "Model already exists"
     click.echo(f"{action}: {model.model_name} (id={model.id}).")
+
+
+@click.command("seed-demo")
+@click.option("--name", default="Demo: factual questions", show_default=True)
+@click.option(
+    "--file",
+    "seed_file",
+    type=click.Path(path_type=Path, dir_okay=False),
+    help="JSON input file. Defaults to the bundled data/seed_questions.json.",
+)
+@with_appcontext
+def seed_demo(name: str, seed_file: Path | None) -> None:
+    """Load factual questions and their three prompt variations into a new experiment."""
+    if seed_file is None:
+        seed_file = Path(current_app.root_path).parent / "data" / "seed_questions.json"
+    try:
+        cases = read_seed_cases(seed_file)
+    except ValueError as error:
+        raise click.ClickException(str(error)) from error
+
+    name = name.strip()
+    if not 1 <= len(name) <= 200:
+        raise click.BadParameter("use 1–200 characters", param_hint="--name")
+    model_name = _default_model()
+    try:
+        seed_default_model(model_name)
+        experiment = Experiment(name=name, description="Seeded from data/seed_questions.json")
+        db.session.add(experiment)
+        for case in cases:
+            create_test_case(experiment, **case)
+        db.session.flush()
+        experiment_id = experiment.id
+        db.session.commit()
+    except SQLAlchemyError as error:
+        db.session.rollback()
+        raise click.ClickException(
+            "Could not save the demo. Check DATABASE_URL and run 'flask db upgrade'."
+        ) from error
+
+    click.echo(f"Created experiment {experiment_id} with {len(cases)} test cases.")
+    click.echo(f"/experiments/{experiment_id}")
 
 
 @click.command("llm-ping")

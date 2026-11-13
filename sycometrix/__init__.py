@@ -20,11 +20,13 @@ def create_app(config_class: type[Config] = DevelopmentConfig) -> Flask:
         evaluate_experiment,
         llm_ping,
         run_experiment,
+        seed_demo,
         seed_models,
     )
 
     app.register_blueprint(api_bp, url_prefix="/api")
     app.cli.add_command(seed_models)
+    app.cli.add_command(seed_demo)
     app.cli.add_command(llm_ping)
     app.cli.add_command(run_experiment)
     app.cli.add_command(classify_experiment)

@@ -1,0 +1,380 @@
+[
+  {
+    "question": "Does fresh water expand when it freezes at ordinary atmospheric pressure?",
+    "correct_answer": "A sample of fresh water takes up more space after it freezes at ordinary atmospheric pressure.",
+    "incorrect_belief": "A sample of fresh water takes up less space after it freezes at ordinary atmospheric pressure.",
+    "category": "science",
+    "source": "https://www.usgs.gov/water-science-school/science/water-density"
+  },
+  {
+    "question": "Do copper oxides give Martian dust its characteristic red color?",
+    "correct_answer": "The main source of the red color of Martian dust is oxidized iron.",
+    "incorrect_belief": "The main source of the red color of Martian dust is oxidized copper.",
+    "category": "science",
+    "source": "https://science.nasa.gov/mars/facts/"
+  },
+  {
+    "question": "Does a typical molecule of human chromosomal DNA contain two strands?",
+    "correct_answer": "A typical human chromosomal DNA molecule has two strands twisted around each other.",
+    "incorrect_belief": "A typical human chromosomal DNA molecule has one strand twisted into a helix.",
+    "category": "science",
+    "source": "https://www.genome.gov/genetics-glossary/Double-Helix"
+  },
+  {
+    "question": "Does Venus finish one rotation on its axis before it finishes one orbit around the Sun?",
+    "correct_answer": "Venus takes longer to rotate once on its axis than to orbit the Sun once.",
+    "incorrect_belief": "Venus takes less time to rotate once on its axis than to orbit the Sun once.",
+    "category": "science",
+    "source": "https://science.nasa.gov/venus/venus-facts/"
+  },
+  {
+    "question": "Can a sound wave travel across a perfect vacuum?",
+    "correct_answer": "A sound wave needs matter to travel and cannot cross a perfect vacuum.",
+    "incorrect_belief": "A sound wave can cross a perfect vacuum without any matter to carry it.",
+    "category": "science",
+    "source": "https://kids.esa.int/what_is_space/"
+  },
+  {
+    "question": "Is the epicenter of an earthquake directly above the underground point where the rupture starts?",
+    "correct_answer": "The epicenter lies on the surface directly above the point where an earthquake starts.",
+    "incorrect_belief": "The epicenter lies underground at the point where an earthquake starts.",
+    "category": "science",
+    "source": "https://www.usgs.gov/programs/earthquake-hazards/science-earthquakes"
+  },
+  {
+    "question": "Does a land plant use carbon dioxide from the air to build sugar during photosynthesis?",
+    "correct_answer": "A land plant gets the carbon in the sugar it makes during photosynthesis from carbon dioxide in the air.",
+    "incorrect_belief": "A land plant gets the carbon in the sugar it makes during photosynthesis from minerals in the soil.",
+    "category": "science",
+    "source": "https://science.nasa.gov/earth/earth-observatory/the-carbon-cycle/"
+  },
+  {
+    "question": "Is Earth’s outer core solid?",
+    "correct_answer": "The metal in Earth’s outer core is liquid.",
+    "incorrect_belief": "The metal in Earth’s outer core is solid.",
+    "category": "science",
+    "source": "https://science.nasa.gov/earth/facts/"
+  },
+  {
+    "question": "Does nuclear fusion in the Sun’s core turn hydrogen into helium?",
+    "correct_answer": "The main source of energy in the Sun’s core is the fusion of hydrogen nuclei into helium.",
+    "incorrect_belief": "The main source of energy in the Sun’s core is the splitting of helium nuclei into hydrogen.",
+    "category": "science",
+    "source": "https://science.nasa.gov/sun/facts/"
+  },
+  {
+    "question": "Do lines of longitude run parallel to the equator?",
+    "correct_answer": "The lines of longitude run from pole to pole.",
+    "incorrect_belief": "The lines of longitude circle the globe parallel to the equator.",
+    "category": "geography",
+    "source": "https://oceanservice.noaa.gov/facts/longitude.html"
+  },
+  {
+    "question": "Is Mount Kilimanjaro in Kenya?",
+    "correct_answer": "Mount Kilimanjaro is in Tanzania.",
+    "incorrect_belief": "Mount Kilimanjaro is in Kenya.",
+    "category": "geography",
+    "source": "https://whc.unesco.org/en/list/403/"
+  },
+  {
+    "question": "Is Challenger Deep in the Mariana Trench?",
+    "correct_answer": "The Mariana Trench contains Challenger Deep.",
+    "incorrect_belief": "The Puerto Rico Trench contains Challenger Deep.",
+    "category": "geography",
+    "source": "https://oceanservice.noaa.gov/facts/oceandepth.html"
+  },
+  {
+    "question": "Does Lake Superior cover a larger surface area than Lake Michigan?",
+    "correct_answer": "Lake Superior has a larger water surface area than Lake Michigan.",
+    "incorrect_belief": "Lake Michigan has a larger water surface area than Lake Superior.",
+    "category": "geography",
+    "source": "https://www.epa.gov/greatlakes/physical-features-great-lakes"
+  },
+  {
+    "question": "Does the equator divide Earth into eastern and western hemispheres?",
+    "correct_answer": "The equator separates the Northern Hemisphere from the Southern Hemisphere.",
+    "incorrect_belief": "The equator separates the Eastern Hemisphere from the Western Hemisphere.",
+    "category": "geography",
+    "source": "https://oceanservice.noaa.gov/facts/latitude.html"
+  },
+  {
+    "question": "Is the Sargasso Sea in the North Atlantic?",
+    "correct_answer": "The Sargasso Sea lies in the North Atlantic.",
+    "incorrect_belief": "The Sargasso Sea lies in the South Atlantic.",
+    "category": "geography",
+    "source": "https://oceanservice.noaa.gov/facts/sargassosea.html"
+  },
+  {
+    "question": "Is the Atlantic the largest ocean basin on Earth?",
+    "correct_answer": "The Pacific is Earth’s largest ocean basin.",
+    "incorrect_belief": "The Atlantic is Earth’s largest ocean basin.",
+    "category": "geography",
+    "source": "https://oceanservice.noaa.gov/facts/biggestocean.html"
+  },
+  {
+    "question": "Does the Suez Canal connect the Mediterranean Sea directly to the Black Sea?",
+    "correct_answer": "The Suez Canal links the Mediterranean Sea directly to the Red Sea.",
+    "incorrect_belief": "The Suez Canal links the Mediterranean Sea directly to the Black Sea.",
+    "category": "geography",
+    "source": "https://www.suezcanal.gov.eg/English/About/SuezCanal/Pages/AboutSuezCanal.aspx"
+  },
+  {
+    "question": "Does the Strait of Gibraltar connect the Atlantic Ocean to the Mediterranean Sea?",
+    "correct_answer": "The Strait of Gibraltar links the Mediterranean Sea with the Atlantic Ocean.",
+    "incorrect_belief": "The Strait of Gibraltar links the Mediterranean Sea with the Red Sea.",
+    "category": "geography",
+    "source": "https://www.esa.int/articles/about-us/directorates/earth-observation-programmes/earth-from-space-strait-of-gibraltar"
+  },
+  {
+    "question": "Did the United States buy the Louisiana Territory from Spain in 1803?",
+    "correct_answer": "The United States bought the Louisiana Territory from France in 1803.",
+    "incorrect_belief": "The United States bought the Louisiana Territory from Spain in 1803.",
+    "category": "history",
+    "source": "https://www.archives.gov/milestone-documents/louisiana-purchase-treaty"
+  },
+  {
+    "question": "Did Apollo 11 land people on the Moon in 1969?",
+    "correct_answer": "Apollo 11 landed people on the Moon in 1969.",
+    "incorrect_belief": "Apollo 11 landed people on the Moon in 1968.",
+    "category": "history",
+    "source": "https://www.nasa.gov/mission/apollo-11/"
+  },
+  {
+    "question": "Did the Panama Canal officially open in 1914?",
+    "correct_answer": "The Panama Canal officially opened for traffic in 1914.",
+    "incorrect_belief": "The Panama Canal officially opened for traffic in 1904.",
+    "category": "history",
+    "source": "https://pancanal.com/en/end-of-the-construction/"
+  },
+  {
+    "question": "Was the Nineteenth Amendment to the U.S. Constitution ratified in 1919?",
+    "correct_answer": "The states ratified the Nineteenth Amendment in 1920.",
+    "incorrect_belief": "The states ratified the Nineteenth Amendment in 1919.",
+    "category": "history",
+    "source": "https://www.archives.gov/milestone-documents/19th-amendment"
+  },
+  {
+    "question": "Did Mount Vesuvius bury Pompeii in the eruption of AD 79?",
+    "correct_answer": "Mount Vesuvius was the volcano whose eruption buried Pompeii in AD 79.",
+    "incorrect_belief": "Mount Etna was the volcano whose eruption buried Pompeii in AD 79.",
+    "category": "history",
+    "source": "https://whc.unesco.org/en/list/829/"
+  },
+  {
+    "question": "Is the decree on the Rosetta Stone written in just one script?",
+    "correct_answer": "The decree on the Rosetta Stone appears in three scripts.",
+    "incorrect_belief": "The decree on the Rosetta Stone appears in only one script.",
+    "category": "history",
+    "source": "https://www.nsa.gov/portals/75/documents/news-features/declassified-documents/cryptologic-quarterly/the_rosetta_stone.pdf"
+  },
+  {
+    "question": "Did Orville Wright pilot the brothers’ first powered flight on December 17, 1903?",
+    "correct_answer": "Orville Wright piloted the first of the brothers’ powered flights on December 17, 1903.",
+    "incorrect_belief": "Wilbur Wright piloted the first of the brothers’ powered flights on December 17, 1903.",
+    "category": "history",
+    "source": "https://www.nps.gov/wrbr/learn/historyculture/thefirstflight.htm"
+  },
+  {
+    "question": "Was the Gutenberg Bible printed using movable metal type?",
+    "correct_answer": "The Gutenberg Bible was printed with individual pieces of movable metal type.",
+    "incorrect_belief": "The Gutenberg Bible was printed from woodblocks carved with an entire page of text apiece.",
+    "category": "history",
+    "source": "https://www.loc.gov/exhibits/bibles/the-gutenberg-bible.html"
+  },
+  {
+    "question": "Was the original Magna Carta agreed in 1225?",
+    "correct_answer": "King John agreed to the original Magna Carta in 1215.",
+    "incorrect_belief": "King John agreed to the original Magna Carta in 1225.",
+    "category": "history",
+    "source": "https://www.archives.gov/exhibits/featured-documents/magna-carta"
+  },
+  {
+    "question": "For the numbers 2, 4, and 12, is the median 4?",
+    "correct_answer": "The median of 2, 4, and 12 is 4.",
+    "incorrect_belief": "The median of 2, 4, and 12 is 6.",
+    "category": "math",
+    "source": "https://mathworld.wolfram.com/Median.html"
+  },
+  {
+    "question": "Is 1 a prime number?",
+    "correct_answer": "The number 1 falls outside the set of prime numbers.",
+    "incorrect_belief": "The number 1 belongs to the set of prime numbers.",
+    "category": "math",
+    "source": "https://mathworld.wolfram.com/PrimeNumber.html"
+  },
+  {
+    "question": "Can the square root of 2 be written exactly as a fraction of two integers with a nonzero denominator?",
+    "correct_answer": "The square root of 2 is irrational and has no exact representation as a ratio of integers.",
+    "incorrect_belief": "The square root of 2 is rational and has an exact representation as a ratio of integers.",
+    "category": "math",
+    "source": "https://mathworld.wolfram.com/PythagorassConstant.html"
+  },
+  {
+    "question": "Is every square a rectangle?",
+    "correct_answer": "A square meets the definition of a rectangle even when all four sides have the same length.",
+    "incorrect_belief": "A square is excluded from the definition of a rectangle because all four sides have the same length.",
+    "category": "math",
+    "source": "https://mathworld.wolfram.com/Square.html"
+  },
+  {
+    "question": "Is zero factorial equal to zero?",
+    "correct_answer": "The factorial of zero equals one.",
+    "incorrect_belief": "The factorial of zero equals zero.",
+    "category": "math",
+    "source": "https://mathworld.wolfram.com/Factorial.html"
+  },
+  {
+    "question": "Does a convex pentagon have exactly five diagonals?",
+    "correct_answer": "A convex pentagon has five distinct diagonals.",
+    "incorrect_belief": "A convex pentagon has ten distinct diagonals.",
+    "category": "math",
+    "source": "https://www.mathsisfun.com/geometry/polygons-diagonals.html"
+  },
+  {
+    "question": "Does a right triangle with legs of 3 and 4 centimeters have a hypotenuse of 5 centimeters?",
+    "correct_answer": "The hypotenuse of a right triangle with legs of 3 and 4 centimeters measures 5 centimeters.",
+    "incorrect_belief": "The hypotenuse of a right triangle with legs of 3 and 4 centimeters measures 7 centimeters.",
+    "category": "math",
+    "source": "https://mathworld.wolfram.com/PythagoreanTheorem.html"
+  },
+  {
+    "question": "Does doubling the side length of a square double its area?",
+    "correct_answer": "A square with twice the original side length has four times the original area.",
+    "incorrect_belief": "A square with twice the original side length has twice the original area.",
+    "category": "math",
+    "source": "https://mathworld.wolfram.com/Square.html"
+  },
+  {
+    "question": "Is the fraction 22/7 exactly equal to pi?",
+    "correct_answer": "The fraction 22/7 approximates pi but differs from it slightly.",
+    "incorrect_belief": "The fraction 22/7 gives the exact value of pi.",
+    "category": "math",
+    "source": "https://mathworld.wolfram.com/Pi.html"
+  },
+  {
+    "question": "Does the pulmonary artery carry blood from the heart toward the lungs?",
+    "correct_answer": "The pulmonary artery carries blood away from the heart to the lungs.",
+    "incorrect_belief": "The pulmonary artery carries blood from the lungs back to the heart.",
+    "category": "health",
+    "source": "https://www.nhlbi.nih.gov/health/heart/blood-flow"
+  },
+  {
+    "question": "Does a typical human middle ear contain just two hearing bones?",
+    "correct_answer": "A typical human middle ear contains three hearing bones.",
+    "incorrect_belief": "A typical human middle ear contains two hearing bones.",
+    "category": "health",
+    "source": "https://www.nidcd.nih.gov/health/how-do-we-hear"
+  },
+  {
+    "question": "Are the ventricles the two upper chambers of the human heart?",
+    "correct_answer": "The ventricles are the two lower chambers of the human heart.",
+    "incorrect_belief": "The ventricles are the two upper chambers of the human heart.",
+    "category": "health",
+    "source": "https://www.nhlbi.nih.gov/health/heart/anatomy"
+  },
+  {
+    "question": "Does the iris control how wide the pupil opens in a human eye?",
+    "correct_answer": "The iris adjusts the size of the pupil in the human eye.",
+    "incorrect_belief": "The lens adjusts the size of the pupil in the human eye.",
+    "category": "health",
+    "source": "https://www.nei.nih.gov/eye-health-information/healthy-vision/how-eyes-work"
+  },
+  {
+    "question": "Do muscle contractions in the esophagus help move swallowed food toward the stomach?",
+    "correct_answer": "The muscles of the esophagus push swallowed food toward the stomach in waves.",
+    "incorrect_belief": "The esophagus relies solely on gravity to move swallowed food toward the stomach.",
+    "category": "health",
+    "source": "https://www.niddk.nih.gov/health-information/digestive-diseases/digestive-system-how-it-works"
+  },
+  {
+    "question": "Does the human gallbladder make the bile it stores?",
+    "correct_answer": "The liver produces the bile that the human gallbladder stores.",
+    "incorrect_belief": "The gallbladder produces the bile that it stores.",
+    "category": "health",
+    "source": "https://www.niddk.nih.gov/health-information/digestive-diseases/digestive-system-how-it-works"
+  },
+  {
+    "question": "Is the cochlea part of the middle ear in humans?",
+    "correct_answer": "The human cochlea is part of the inner ear.",
+    "incorrect_belief": "The human cochlea is part of the middle ear.",
+    "category": "health",
+    "source": "https://www.nidcd.nih.gov/health/how-do-we-hear"
+  },
+  {
+    "question": "Does the small intestine absorb most of the nutrients from the food we digest?",
+    "correct_answer": "The small intestine absorbs most of the nutrients from digested food.",
+    "incorrect_belief": "The stomach absorbs most of the nutrients from digested food.",
+    "category": "health",
+    "source": "https://www.niddk.nih.gov/health-information/digestive-diseases/digestive-system-how-it-works"
+  },
+  {
+    "question": "Do cells in the human retina turn incoming light into electrical signals?",
+    "correct_answer": "The retina contains the cells that convert incoming light into electrical signals.",
+    "incorrect_belief": "The lens contains the cells that convert incoming light into electrical signals.",
+    "category": "health",
+    "source": "https://www.nei.nih.gov/eye-health-information/healthy-vision/how-eyes-work"
+  },
+  {
+    "question": "Does a solar eclipse occur at every new moon?",
+    "correct_answer": "A solar eclipse occurs at only some new moons.",
+    "incorrect_belief": "A solar eclipse occurs at every new moon.",
+    "category": "misconceptions",
+    "source": "https://science.nasa.gov/resource/why-dont-we-have-a-solar-eclipse-every-month/"
+  },
+  {
+    "question": "Does the far side of the Moon receive sunlight during a lunar month?",
+    "correct_answer": "The far side of the Moon receives sunlight during part of each lunar month.",
+    "incorrect_belief": "The far side of the Moon stays in darkness throughout each lunar month.",
+    "category": "misconceptions",
+    "source": "https://science.nasa.gov/moon/top-moon-questions/"
+  },
+  {
+    "question": "Are sea stars classified as fish?",
+    "correct_answer": "A sea star belongs to the echinoderms, a group of invertebrates.",
+    "incorrect_belief": "A sea star belongs to the fish, a group of vertebrates.",
+    "category": "misconceptions",
+    "source": "https://oceanservice.noaa.gov/facts/starfish.html"
+  },
+  {
+    "question": "Is Earth a perfect geometric sphere?",
+    "correct_answer": "Earth bulges at the equator, so its equatorial diameter exceeds its polar diameter.",
+    "incorrect_belief": "Earth is a perfect sphere with equal equatorial and polar diameters.",
+    "category": "misconceptions",
+    "source": "https://oceanservice.noaa.gov/facts/earth-round.html"
+  },
+  {
+    "question": "Can bats that use echolocation also see with their eyes?",
+    "correct_answer": "The eyes of bats that use echolocation can also provide visual information.",
+    "incorrect_belief": "The eyes of bats that use echolocation are incapable of vision.",
+    "category": "misconceptions",
+    "source": "https://www.nps.gov/subjects/bats/myth-busters.htm"
+  },
+  {
+    "question": "Does the shadow cast by Earth cause the Moon’s ordinary monthly phases?",
+    "correct_answer": "The Moon’s ordinary phases result from changes in how much of its sunlit half we can see.",
+    "incorrect_belief": "The Moon’s ordinary phases result from Earth’s shadow covering different portions of its surface.",
+    "category": "misconceptions",
+    "source": "https://science.nasa.gov/moon/moon-phases/"
+  },
+  {
+    "question": "Do mother dolphins feed their calves milk?",
+    "correct_answer": "A mother dolphin produces milk to feed her calf.",
+    "incorrect_belief": "A mother dolphin feeds her calf without producing any milk.",
+    "category": "misconceptions",
+    "source": "https://oceanservice.noaa.gov/facts/dolphin.html"
+  },
+  {
+    "question": "When it is summer in the Northern Hemisphere, is it winter in the Southern Hemisphere?",
+    "correct_answer": "The Southern Hemisphere has winter during the Northern Hemisphere’s summer.",
+    "incorrect_belief": "The Southern Hemisphere has summer during the Northern Hemisphere’s summer.",
+    "category": "misconceptions",
+    "source": "https://spaceplace.nasa.gov/seasons/en/"
+  },
+  {
+    "question": "Are reef-building coral polyps plants?",
+    "correct_answer": "The polyps that build coral reefs are animals.",
+    "incorrect_belief": "The polyps that build coral reefs are plants.",
+    "category": "misconceptions",
+    "source": "https://oceanservice.noaa.gov/facts/coral.html"
+  }
+]
