@@ -28,7 +28,7 @@ def list_experiments() -> Response:
         select(Experiment, func.count(TestCase.id))
         .outerjoin(TestCase)
         .group_by(Experiment.id)
-        .order_by(Experiment.created_at.desc())
+        .order_by(Experiment.created_at.desc(), Experiment.id.desc())
     ).all()
     return jsonify([serialize_experiment_summary(experiment, count) for experiment, count in rows])
 
