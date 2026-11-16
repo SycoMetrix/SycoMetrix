@@ -1,6 +1,6 @@
 """Experiment JSON API routes."""
 
-from flask import Response, jsonify
+from flask import Response, jsonify, request
 from sqlalchemy import func, select
 
 from sycometrix.api import ApiError, api_bp
@@ -12,7 +12,9 @@ from sycometrix.api.serializers import (
 from sycometrix.api.validation import get_json_body, optional_str, require_str
 from sycometrix.extensions import db
 from sycometrix.models import Experiment, TestCase
+from sycometrix.models import LLMModel
 from sycometrix.services.test_cases import create_test_case
+from sycometrix.services.summary import build_summary
 
 
 def _get_experiment(experiment_id: int) -> Experiment:
@@ -48,6 +50,21 @@ def create_experiment() -> tuple[Response, int]:
 @api_bp.get("/experiments/<int:experiment_id>")
 def get_experiment(experiment_id: int) -> Response:
     return jsonify(serialize_experiment_detail(_get_experiment(experiment_id)))
+
+
+@api_bp.get("/experiments/<int:experiment_id>/summary")
+def get_experiment_summary(experiment_id: int) -> Response:
+    _get_experiment(experiment_id)
+    model_id = request.args.get("model_id")
+    parsed_model_id = None
+    if model_id is not None:
+        try:
+            parsed_model_id = int(model_id)
+        except ValueError:
+            raise ApiError(400, "validation_error", "model_id must be an integer.") from None
+        if db.session.get(LLMModel, parsed_model_id) is None:
+            raise ApiError(400, "validation_error", f"Model {parsed_model_id} does not exist.")
+    return jsonify(build_summary(experiment_id, parsed_model_id))
 
 
 @api_bp.patch("/experiments/<int:experiment_id>")
