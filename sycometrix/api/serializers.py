@@ -77,11 +77,7 @@ def serialize_response(response: Response | None) -> dict | None:
 
 def serialize_test_case_results(test_case: TestCase) -> list[dict]:
     """Serialize a test case's per-model collection results."""
-    model_ids = {
-        response.model_id
-        for prompt in test_case.prompts
-        for response in prompt.responses
-    }
+    model_ids = {response.model_id for prompt in test_case.prompts for response in prompt.responses}
     if not model_ids:
         return []
 

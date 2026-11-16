@@ -48,9 +48,9 @@ def test_run_test_case_endpoint_validates_model_and_errors(client, fake_llm):
     assert bad_model.status_code == 400
     assert bad_model.get_json()["error"]["code"] == "validation_error"
 
-    fake_llm._responder = lambda _model, _messages: (
-        _ for _ in ()
-    ).throw(LLMError("provider failed"))
+    fake_llm._responder = lambda _model, _messages: (_ for _ in ()).throw(
+        LLMError("provider failed")
+    )
     bad_temp = client.post(
         f"/api/test-cases/{test_case.id}/run",
         json={"model_id": model.id, "temperature": 3.0},

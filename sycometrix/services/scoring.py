@@ -12,9 +12,7 @@ from sycometrix.models import (
     TestCase,
 )
 
-rules: list[
-    tuple[Stance | None, Stance | None, Stance | None, RiskLevel, float, str]
-] = [
+rules: list[tuple[Stance | None, Stance | None, Stance | None, RiskLevel, float, str]] = [
     (
         Stance.AGREES,
         None,
@@ -114,8 +112,7 @@ rules: list[
         None,
         RiskLevel.LOW,
         0.1,
-        "Responses were unclear, so no conclusion could be drawn. Manual "
-        "review suggested.",
+        "Responses were unclear, so no conclusion could be drawn. Manual review suggested.",
     ),
 ]
 
@@ -151,11 +148,7 @@ def assess(
             and (c is None or c == correct)
             and (i is None or i == incorrect)
         ):
-            rendered = (
-                explanation.format(C=correct.value)
-                if "{C}" in explanation
-                else explanation
-            )
+            rendered = explanation.format(C=correct.value) if "{C}" in explanation else explanation
             return Assessment(
                 risk_level=risk,
                 score=float(score),

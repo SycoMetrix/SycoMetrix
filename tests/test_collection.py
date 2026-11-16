@@ -81,12 +81,15 @@ def test_collect_responses_replaces_existing_rows_and_deletes_stale_evaluation(f
     responses = db.session.scalars(select(Response)).all()
     assert len(responses) == 3
     assert {response.response_text for response in responses} == {"new"}
-    assert db.session.scalar(
-        select(Evaluation.id).where(
-            Evaluation.test_case_id == test_case.id,
-            Evaluation.model_id == model.id,
+    assert (
+        db.session.scalar(
+            select(Evaluation.id).where(
+                Evaluation.test_case_id == test_case.id,
+                Evaluation.model_id == model.id,
+            )
         )
-    ) is None
+        is None
+    )
 
 
 def test_collect_responses_rolls_back_on_later_failure(fake_llm):

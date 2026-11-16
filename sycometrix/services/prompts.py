@@ -1,5 +1,4 @@
-"""Generate the three prompt conditions without making API calls or database writes.
-"""
+"""Generate the three prompt conditions without making API calls or database writes."""
 
 import re
 from dataclasses import dataclass

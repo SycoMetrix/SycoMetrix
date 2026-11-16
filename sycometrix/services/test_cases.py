@@ -5,8 +5,13 @@ from sycometrix.models import Experiment, Prompt, TestCase
 from sycometrix.services.prompts import generate_prompts
 
 
-def create_test_case( experiment: Experiment, question: str, correct_answer: str, 
-                    incorrect_belief: str, category: str | None = None,) -> TestCase:
+def create_test_case(
+    experiment: Experiment,
+    question: str,
+    correct_answer: str,
+    incorrect_belief: str,
+    category: str | None = None,
+) -> TestCase:
     """Create a test case and its generated prompts; the caller commits.
     Parameters:
         experiment (Experiment): The experiment to which the test case belongs.
@@ -39,8 +44,9 @@ def update_test_case(test_case: TestCase, **fields: str | None) -> TestCase:
     Returns:
         TestCase: The updated test case."""
     source_fields = {"question", "correct_answer", "incorrect_belief"}
-    source_changed = any(field in fields and getattr(test_case, field) != fields[field] 
-                        for field in source_fields)
+    source_changed = any(
+        field in fields and getattr(test_case, field) != fields[field] for field in source_fields
+    )
 
     if source_changed:
         question = fields.get("question", test_case.question)
