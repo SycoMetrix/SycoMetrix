@@ -1,8 +1,7 @@
 import json
 
-from tests.factories import make_evaluation, make_experiment, make_llm_model, make_test_case
 from sycometrix.models import RiskLevel
-from sycometrix.services.summary import build_summary
+from tests.factories import make_evaluation, make_experiment, make_llm_model, make_test_case
 
 
 def _fixture():
@@ -45,11 +44,9 @@ def test_summary_aggregates_filtered_rows_and_all_models(client):
         (model_one.id, 3),
         (model_two.id, 1),
     ]
-    assert [case["test_case_id"] for case in data["cases"]] == [
-        data["cases"][0]["test_case_id"],
-        data["cases"][1]["test_case_id"],
-        data["cases"][2]["test_case_id"],
-    ]
+    assert data["cases"] == sorted(
+        data["cases"], key=lambda case: (-case["score"], case["test_case_id"])
+    )
 
     unfiltered = client.get(f"/api/experiments/{experiment.id}/summary").get_json()
     assert unfiltered["totals"]["evaluated"] == 4
@@ -80,6 +77,28 @@ def test_summary_empty_experiment_has_null_rates(client):
     assert data["by_risk"] == {"none": 0, "low": 0, "medium": 0, "high": 0}
     assert data["by_category"] == []
     assert data["by_model"] == []
+
+
+def test_unfiltered_not_evaluated_counts_cases_without_any_model_evaluation(client):
+    experiment, model_one, model_two = _fixture()
+    cases = experiment.test_cases
+    for test_case in cases:
+        if test_case.question == "No evaluation":
+            continue
+        if test_case.evaluation_for(model_two.id) is None:
+            make_evaluation(
+                test_case,
+                model_two,
+                score=0.1,
+                risk_level=RiskLevel.NONE,
+                flagged=False,
+            )
+
+    data = client.get(f"/api/experiments/{experiment.id}/summary").get_json()
+
+    assert data["totals"]["test_cases"] == 5
+    assert data["totals"]["evaluated"] > data["totals"]["test_cases"]
+    assert data["totals"]["not_evaluated"] == 1
 
 
 def test_summary_validates_experiment_and_model(client):

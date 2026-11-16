@@ -8,7 +8,6 @@ from sqlalchemy import func, select
 from sycometrix.extensions import db
 from sycometrix.models import Evaluation, LLMModel, RiskLevel, TestCase
 
-
 _COLUMNS = [
     "test_case_id",
     "question",
@@ -22,6 +21,14 @@ _COLUMNS = [
 
 
 def _rate(frame: pd.DataFrame) -> float | None:
+    """Return the fraction of flagged rows in a frame, or None if no rows
+
+    Args:
+        frame (pd.DataFrame): The DataFrame to analyze.
+
+    Returns:
+        float | None: The fraction of flagged rows, or None if no rows.
+    """
     evaluated = len(frame)
     if evaluated == 0:
         return None
@@ -29,12 +36,30 @@ def _rate(frame: pd.DataFrame) -> float | None:
 
 
 def _mean_score(frame: pd.DataFrame) -> float | None:
+    """Return the mean score of a frame, or None if no rows are present
+
+    Args:
+        frame (pd.DataFrame): The DataFrame to analyze.
+
+    Returns:
+        float | None: The mean score, or None if no rows are present.
+    """
     if frame.empty:
         return None
     return round(float(frame["score"].mean()), 3)
 
 
 def _group_stats(frame: pd.DataFrame, key: str) -> list[dict[str, Any]]:
+    """Return a list of dictionaries with statistics for each group in the frame
+    Grouped by the given key.
+
+    Args:
+        frame (pd.DataFrame): The DataFrame to analyze.
+        key (str): The column name to group by.
+
+    Returns:
+        list[dict[str, Any]]: A list of dictionaries with statistics for each group.
+    """
     if frame.empty:
         return []
     grouped = frame.groupby(key, sort=True, dropna=False)
@@ -51,6 +76,14 @@ def _group_stats(frame: pd.DataFrame, key: str) -> list[dict[str, Any]]:
 
 
 def _model_stats(frame: pd.DataFrame) -> list[dict[str, Any]]:
+    """Return a list of dictionaries with statistics for each model in the frame
+
+    Args:
+        frame (pd.DataFrame): The DataFrame to analyze.
+
+    Returns:
+        list[dict[str, Any]]: A list of dictionaries with statistics for each model.
+    """
     return [
         {
             "model_id": int(item["model_id"]),
@@ -67,6 +100,14 @@ def _model_stats(frame: pd.DataFrame) -> list[dict[str, Any]]:
 
 
 def _row_dict(row: pd.Series) -> dict[str, Any]:
+    """Convert a DataFrame row to a dictionary with appropriate types
+
+    Args:
+        row (pd.Series): The DataFrame row to convert.
+
+    Returns:
+        dict[str, Any]: A dictionary with the row's values converted to appropriate types.
+    """
     return {
         "test_case_id": int(row["test_case_id"]),
         "question": str(row["question"]),
@@ -79,7 +120,15 @@ def _row_dict(row: pd.Series) -> dict[str, Any]:
 
 
 def build_summary(experiment_id: int, model_id: int | None = None) -> dict[str, Any]:
-    """Return dashboard aggregates for an experiment."""
+    """Return dashboard data for an experiment
+
+    Args:
+        experiment_id (int): The ID of the experiment to summarize.
+        model_id (int | None): The ID of the model to filter by or None to show all models.
+
+    Returns:
+        dict[str, Any]: A dictionary with the summary statistics for the experiment.
+    """
     test_case_count = int(
         db.session.scalar(
             select(func.count(TestCase.id)).where(TestCase.experiment_id == experiment_id)
@@ -133,6 +182,7 @@ def build_summary(experiment_id: int, model_id: int | None = None) -> dict[str, 
     filtered = frame if model_id is None else frame[frame["model_id"] == model_id]
 
     evaluated = len(filtered)
+    evaluated_cases = int(filtered["test_case_id"].nunique())
     flagged = int(filtered["flagged"].sum()) if evaluated else 0
     not_flagged = evaluated - flagged
     if evaluated:
@@ -148,6 +198,8 @@ def build_summary(experiment_id: int, model_id: int | None = None) -> dict[str, 
         filtered.sort_values(["score", "test_case_id"], ascending=[False, True])
         .apply(_row_dict, axis=1)
         .tolist()
+        if not filtered.empty
+        else []
     )
 
     return {
@@ -157,7 +209,7 @@ def build_summary(experiment_id: int, model_id: int | None = None) -> dict[str, 
         "totals": {
             "test_cases": test_case_count,
             "evaluated": evaluated,
-            "not_evaluated": test_case_count - evaluated,
+            "not_evaluated": test_case_count - evaluated_cases,
             "flagged": flagged,
             "not_flagged": not_flagged,
         },

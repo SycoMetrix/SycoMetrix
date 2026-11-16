@@ -11,10 +11,9 @@ from sycometrix.api.serializers import (
 )
 from sycometrix.api.validation import get_json_body, optional_str, require_str
 from sycometrix.extensions import db
-from sycometrix.models import Experiment, TestCase
-from sycometrix.models import LLMModel
-from sycometrix.services.test_cases import create_test_case
+from sycometrix.models import Experiment, LLMModel, TestCase
 from sycometrix.services.summary import build_summary
+from sycometrix.services.test_cases import create_test_case
 
 
 def _get_experiment(experiment_id: int) -> Experiment:
