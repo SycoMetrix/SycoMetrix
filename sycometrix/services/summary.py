@@ -143,10 +143,7 @@ def build_summary(experiment_id: int, model_id: int | None = None) -> dict[str, 
     else:
         headline = f"{test_case_count} test cases; none evaluated yet."
 
-    by_risk = {
-        risk.value: int((filtered["risk_level"] == risk.value).sum())
-        for risk in RiskLevel
-    }
+    by_risk = {risk.value: int((filtered["risk_level"] == risk.value).sum()) for risk in RiskLevel}
     cases = (
         filtered.sort_values(["score", "test_case_id"], ascending=[False, True])
         .apply(_row_dict, axis=1)

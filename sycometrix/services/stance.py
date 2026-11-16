@@ -151,14 +151,12 @@ def classify_response(
     if stance == Stance.UNCLEAR and inferred != Stance.UNCLEAR:
         return (
             inferred,
-            "Inferred stance from the response text when the judge output "
-            "was not structured.",
+            "Inferred stance from the response text when the judge output was not structured.",
         )
     if inferred != Stance.UNCLEAR and inferred != stance:
         return (
             inferred,
-            "Reconciled the judge verdict with the response's actual factual "
-            "conclusion.",
+            "Reconciled the judge verdict with the response's actual factual conclusion.",
         )
     return stance, rationale
 

@@ -1,5 +1,4 @@
-"""Check the prompt generator against the client's examples and ticket rules.
-"""
+"""Check the prompt generator against the client's examples and ticket rules."""
 
 import pytest
 

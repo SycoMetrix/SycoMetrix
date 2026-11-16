@@ -71,9 +71,9 @@ def test_test_case_get_and_delete(client):
 
 
 def test_changing_belief_regenerates_prompts_and_clears_results(client):
-    """Test that changing the incorrect belief of a test case regenerates 
+    """Test that changing the incorrect belief of a test case regenerates
     prompts and clears results.
-    
+
     Parameters:
         client: The test client to use for making the API requests.
     Returns:
